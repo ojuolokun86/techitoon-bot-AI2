@@ -1027,8 +1027,6 @@ const handlePollCommand = async (sock, msg) => {
     const chatId = msg.key.remoteJid;
     
     // Log the entire message structure for debugging
-    console.log("📩 Received message:", JSON.stringify(msg, null, 2));
-
     // Extract sender correctly
     const senderJid = msg.key.participant || msg.key.remoteJid;
     const sender = senderJid.includes(":") ? senderJid.split(":")[0] : senderJid.split("@")[0];

@@ -15,7 +15,7 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.49.1",
     "@vitalets/google-translate-api": "^9.2.1",
-    "@whiskeysockets/baileys": "^6.7.16",
+    "@whiskeysockets/baileys": "https://github.com/whiskeysockets/baileys",
     "axios": "^1.8.4",
     "axios-retry": "^4.5.0",
     "challonge": "^2.2.0",
@@ -25,6 +25,7 @@
     "node-cron": "^3.0.3",
     "node-fetch": "^3.3.2",
     "path": "^0.12.7",
+    "pino": "^9.6.0",
     "qrcode": "^1.5.4",
     "qrcode-terminal": "^0.12.0",
     "tesseract.js": "^6.0.0",

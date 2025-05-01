@@ -6,7 +6,6 @@ const { formatResponseWithHeaderFooter } = require('../utils/utils');
 // Function to detect view-once media
 const detectViewOnceMedia = (message) => {
     console.log('Detecting view-once media...');
-    console.log('Message structure:', JSON.stringify(message, null, 2));
 
     if (message.message?.viewOnceMessage) {
         return message.message.viewOnceMessage.message;  // ✅ Detects top-level view-once message

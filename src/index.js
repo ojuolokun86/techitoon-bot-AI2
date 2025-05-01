@@ -1,9 +1,11 @@
+console.log = function () {};
 require('dotenv').config();
+const qrcode = require('qrcode-terminal');
 require('./sync-version');
 const { default: makeWASocket, useMultiFileAuthState, DisconnectReason } = require('@whiskeysockets/baileys');
 const { logInfo, logError } = require('./utils/logger');
 const { startMainBot, startSecurityBot } = require('./bot/bot'); // Import startMainBot and startSecurityBot from bot.js
-
+const pino = require('pino');
 let shouldReconnect = true; // Flag to control reconnection
 
 const startBot = async () => {
@@ -16,8 +18,9 @@ const startBot = async () => {
 
         console.log('🔄 Creating WhatsApp socket...');
         const sock = makeWASocket({
+            browser: ['Techitoon', 'Linux', '10.0'],
             auth: state,
-            printQRInTerminal: true,
+            logger: pino({ level: 'silent' }) // ✅ disables all Baileys logs properly
         });
         console.log('✅ WhatsApp socket created.');
 
@@ -33,9 +36,12 @@ const startBot = async () => {
 
         // Handle connection updates
         sock.ev.on('connection.update', (update) => {
-            console.log('🔄 Connection update received:', update);
-            const { connection, lastDisconnect } = update;
-
+            const { connection, lastDisconnect, qr } = update;
+        
+            if (qr) {
+                console.log('📱 Scan this QR code to log in:');
+                qrcode.generate(qr, { small: true }); // prints in terminal
+            }
             if (connection === 'close') {
                 const statusCode = lastDisconnect?.error?.output?.statusCode;
                 const reconnect = shouldReconnect && statusCode !== DisconnectReason.loggedOut;

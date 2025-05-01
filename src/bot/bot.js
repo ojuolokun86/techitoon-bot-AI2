@@ -62,6 +62,7 @@ const startUserBot = async (userNumber) => {
         const { state, saveCreds } = await useMultiFileAuthState(userSessionPath);
         const sock = makeWASocket({
             auth: state,
+            browser: ['Techitoon', 'Linux', '10.0'],
             printQRInTerminal: false,
         });
 
